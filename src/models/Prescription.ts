@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { AnalysisResult } from '../types';
+import { AnalysisResult } from '../../types';
 
 export interface IPrescription extends Document {
   userId: mongoose.Types.ObjectId;
@@ -12,8 +12,6 @@ export interface IPrescription extends Document {
   allergies: string;
   age: string;
   conditions: string;
-  isPregnant: boolean;
-  isBreastfeeding: boolean;
   analysisResult: any; // Using any for now as AnalysisResult might need to be converted to a schema
   createdAt: Date;
 }
@@ -44,14 +42,6 @@ const PrescriptionSchema: Schema = new Schema({
   conditions: {
     type: String,
     default: ''
-  },
-  isPregnant: {
-    type: Boolean,
-    default: false
-  },
-  isBreastfeeding: {
-    type: Boolean,
-    default: false
   },
   analysisResult: {
     type: Object,

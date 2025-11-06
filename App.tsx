@@ -4,7 +4,9 @@ import PrescriptionAnalyzer from './components/PrescriptionAnalyzer';
 import MentalHealthMonitor from './components/MentalHealthMonitor';
 import LandingPage from './components/LandingPage';
 import AuthPage from './components/AuthPage';
+import ChatBot from './components/ChatBot'; // Add ChatBot import
 import { Tool, Language } from './types';
+import { useTranslation } from './services/translationService';
 // MongoDB connection will be handled through backend API calls
 
 function App() {
@@ -14,6 +16,37 @@ function App() {
   const [currentToolView, setCurrentToolView] = useState<Tool>('landing');
   const [currentLanguage, setCurrentLanguage] = useState<Language>('en');
   const [error, setError] = useState<string | null>(null);
+  
+  // Get translations for the current language
+  const t = useTranslation(currentLanguage);
+  
+  // Check for saved authentication state on app initialization
+  useEffect(() => {
+    const savedAuthState = localStorage.getItem('digitalDoctorAuth');
+    if (savedAuthState) {
+      try {
+        const { isAuthenticated: savedIsAuthenticated, userId: savedUserId } = JSON.parse(savedAuthState);
+        if (savedIsAuthenticated && savedUserId) {
+          setIsAuthenticated(savedIsAuthenticated);
+          setUserId(savedUserId);
+          setCurrentToolView('landing');
+        }
+      } catch (e) {
+        console.error('Failed to parse saved auth state:', e);
+      }
+    }
+  }, []);
+  
+  // Save authentication state to localStorage whenever it changes
+  useEffect(() => {
+    if (isAuthenticated && userId) {
+      const authState = {
+        isAuthenticated,
+        userId
+      };
+      localStorage.setItem('digitalDoctorAuth', JSON.stringify(authState));
+    }
+  }, [isAuthenticated, userId]);
   
   // Add debug logging
   useEffect(() => {
@@ -29,8 +62,9 @@ function App() {
       
       // For now, we'll just set isAuthenticated to true
       // In a real implementation, you would get the user ID from the auth service response
+      const newUserId = 'user-' + Date.now(); // This should be the actual user ID from the database
       setIsAuthenticated(true);
-      setUserId('temp-user-id'); // This should be the actual user ID from the database
+      setUserId(newUserId);
       setCurrentToolView('landing'); // Navigate to landing page after successful login
     } catch (error) {
       console.error('Login failed:', error);
@@ -45,8 +79,9 @@ function App() {
       
       // For now, we'll just set isAuthenticated to true
       // In a real implementation, you would get the user ID from the auth service response
+      const newUserId = 'user-' + Date.now(); // This should be the actual user ID from the database
       setIsAuthenticated(true);
-      setUserId('temp-user-id'); // This should be the actual user ID from the database
+      setUserId(newUserId);
       setCurrentToolView('landing'); // Navigate to landing page after successful signup
     } catch (error) {
       console.error('Signup failed:', error);
@@ -56,8 +91,10 @@ function App() {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    setUserId(null);
     setCurrentToolView('landing'); // Reset to landing or auth page
     // Clear any user-specific data here
+    localStorage.removeItem('digitalDoctorAuth');
   };
 
   const handleToolSelect = (tool: Tool) => {
@@ -86,6 +123,31 @@ function App() {
   
   console.log('Rendering main app with view:', currentToolView);
 
+  // Render LandingPage outside the main container to avoid white borders
+  if (currentToolView === 'landing') {
+    return (
+      <div className="min-h-screen bg-gray-100 font-sans flex flex-col">
+        <Header
+          isAuthenticated={isAuthenticated}
+          onLogout={handleLogout}
+          onHomeClick={handleHomeClick}
+          currentLanguage={currentLanguage}
+          onLanguageChange={handleLanguageChange}
+          currentToolView={currentToolView}
+          onToolSelect={handleToolSelect}
+          t={t}
+        />
+        <main className="flex-grow">
+          <LandingPage onToolSelect={handleToolSelect} t={t} />
+        </main>
+        <footer className="text-center py-4 text-gray-500 text-sm">
+          <p>Disclaimer: This tool is for informational purposes only and is not a substitute for professional medical advice.</p>
+        </footer>
+      </div>
+    );
+  }
+
+  // Render other views inside the container
   return (
     <div className="min-h-screen bg-gray-100 font-sans flex flex-col">
       <Header
@@ -94,17 +156,20 @@ function App() {
         onHomeClick={handleHomeClick}
         currentLanguage={currentLanguage}
         onLanguageChange={handleLanguageChange}
+        currentToolView={currentToolView}
+        onToolSelect={handleToolSelect}
+        t={t}
       />
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-          {currentToolView === 'landing' && (
-            <LandingPage onToolSelect={handleToolSelect} />
-          )}
           {currentToolView === 'prescription' && (
             <PrescriptionAnalyzer language={currentLanguage} userId={userId} />
           )}
           {currentToolView === 'mentalHealth' && (
             <MentalHealthMonitor language={currentLanguage} />
+          )}
+          {currentToolView === 'chatbot' && (
+            <ChatBot language={currentLanguage} onClose={() => setCurrentToolView('landing')} />
           )}
         </div>
       </main>

@@ -13,8 +13,6 @@ const prescriptionService = {
     allergies: string,
     age: string,
     conditions: string,
-    isPregnant: boolean,
-    isBreastfeeding: boolean,
     analysisResult: any
   ) => {
     try {
@@ -25,8 +23,6 @@ const prescriptionService = {
         allergies,
         age,
         conditions,
-        isPregnant,
-        isBreastfeeding,
         analysisResult
       );
       return response.prescription;

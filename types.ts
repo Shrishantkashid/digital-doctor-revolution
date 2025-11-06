@@ -2,6 +2,14 @@ export interface Medication {
     name: string;
     dosage: string;
     frequency: string;
+    // New fields for enhanced drug information
+    description?: string; // What the drug is used to treat
+    timing?: 'Before Food' | 'After Food' | 'With Food' | 'Anytime'; // When to take the medication
+    diseaseMatch?: {
+        patientDisease: string;
+        isMatch: boolean;
+        recommendation: string;
+    }; // Match with patient's disease
 }
 
 export interface Interaction {
@@ -49,7 +57,7 @@ export interface MentalHealthAnalysisResult {
     recommendations: string[];
 }
 
-export type Tool = 'landing' | 'prescription' | 'mentalHealth';
+export type Tool = 'landing' | 'prescription' | 'mentalHealth' | 'chatbot';
 
-// Extended language support
+// Extended language support - all languages
 export type Language = 'en' | 'hi' | 'te' | 'ta' | 'kn' | 'ml' | 'mr' | 'bn' | 'gu' | 'pa';

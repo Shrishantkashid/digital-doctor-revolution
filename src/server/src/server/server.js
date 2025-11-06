@@ -6,8 +6,8 @@ import path from 'path';
 // Load environment variables
 dotenv.config();
 // Import services
-import authService from '../services/authService.js';
-import prescriptionService from '../services/prescriptionService.js';
+import authService from '../services/authService';
+import prescriptionService from '../services/prescriptionService';
 const app = express();
 const PORT = process.env.PORT || 3001;
 // Middleware
@@ -48,14 +48,6 @@ const connectDB = async () => {
 };
 // Connect to MongoDB
 connectDB();
-// Global error handler
-app.use((err, req, res, next) => {
-    console.error('Unhandled error:', err);
-    res.status(500).json({
-        success: false,
-        message: 'Internal server error: ' + err.message
-    });
-});
 // API Routes
 // User registration
 app.post('/api/auth/register', async (req, res) => {
@@ -69,7 +61,6 @@ app.post('/api/auth/register', async (req, res) => {
         });
     }
     catch (error) {
-        console.error('Registration error:', error);
         res.status(400).json({
             success: false,
             message: error instanceof Error ? error.message : 'Registration failed'
@@ -88,7 +79,6 @@ app.post('/api/auth/login', async (req, res) => {
         });
     }
     catch (error) {
-        console.error('Login error:', error);
         res.status(401).json({
             success: false,
             message: error instanceof Error ? error.message : 'Login failed'
@@ -107,7 +97,6 @@ app.post('/api/prescriptions', async (req, res) => {
         });
     }
     catch (error) {
-        console.error('Prescription save error:', error);
         res.status(400).json({
             success: false,
             message: error instanceof Error ? error.message : 'Failed to save prescription'
@@ -125,7 +114,6 @@ app.get('/api/prescriptions/:userId', async (req, res) => {
         });
     }
     catch (error) {
-        console.error('Get prescriptions error:', error);
         res.status(400).json({
             success: false,
             message: error instanceof Error ? error.message : 'Failed to retrieve prescriptions'

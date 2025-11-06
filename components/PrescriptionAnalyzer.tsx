@@ -7,6 +7,7 @@ import AnalysisResultComponent from './AnalysisResult';
 import { analyzePrescription } from '../services/geminiService';
 import { prescriptionService } from '../src/services';
 import { AnalysisResult, Language } from '../types';
+import { useTranslation } from '../services/translationService';
 
 interface PrescriptionAnalyzerProps {
     language: Language;
@@ -18,16 +19,17 @@ const PrescriptionAnalyzer: React.FC<PrescriptionAnalyzerProps> = ({ language, u
     const [allergies, setAllergies] = useState('');
     const [age, setAge] = useState('');
     const [conditions, setConditions] = useState('');
-    const [isPregnant, setIsPregnant] = useState(false);
-    const [isBreastfeeding, setIsBreastfeeding] = useState(false);
 
     const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    
+    // Get translations for the current language
+    const t = useTranslation(language);
 
     const handleAnalyze = async () => {
         if (!selectedFile) {
-            setError('Please upload a prescription image first.');
+            setError(t.uploadPrescription);
             return;
         }
 
@@ -41,8 +43,6 @@ const PrescriptionAnalyzer: React.FC<PrescriptionAnalyzerProps> = ({ language, u
                 allergies,
                 age,
                 conditions,
-                isPregnant,
-                isBreastfeeding,
                 language,
             });
             
@@ -72,8 +72,6 @@ const PrescriptionAnalyzer: React.FC<PrescriptionAnalyzerProps> = ({ language, u
                     allergies,
                     age,
                     conditions,
-                    isPregnant,
-                    isBreastfeeding,
                     result
                   );
                   console.log('Prescription saved to database');
@@ -99,10 +97,15 @@ const PrescriptionAnalyzer: React.FC<PrescriptionAnalyzerProps> = ({ language, u
     return (
         <div className="bg-white rounded-lg shadow-xl p-6 md:p-8 space-y-6">
             <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Prescription Analysis</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-800">{t.prescriptionAnalysis}</h1>
                 <p className="mt-2 text-gray-600">
-                    Upload an image of your prescription and provide any relevant health information. Our AI will analyze it for potential issues and insights.
+                    {t.prescriptionDescription}
                 </p>
+                <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+                    <p className="text-sm text-yellow-700">
+                        <span className="font-semibold">{t.prescriptionNote.split(':')[0]}:</span> {t.prescriptionNote.split(':')[1]}
+                    </p>
+                </div>
             </div>
 
             <div className="space-y-4">
@@ -113,10 +116,6 @@ const PrescriptionAnalyzer: React.FC<PrescriptionAnalyzerProps> = ({ language, u
                     setAge={setAge}
                     conditions={conditions}
                     setConditions={setConditions}
-                    isPregnant={isPregnant}
-                    setIsPregnant={setIsPregnant}
-                    isBreastfeeding={isBreastfeeding}
-                    setIsBreastfeeding={setIsBreastfeeding}
                 />
             </div>
             
@@ -126,7 +125,7 @@ const PrescriptionAnalyzer: React.FC<PrescriptionAnalyzerProps> = ({ language, u
                     disabled={!selectedFile || isLoading}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors duration-300"
                 >
-                    {isLoading ? 'Analyzing...' : 'Analyze Prescription'}
+                    {isLoading ? t.analyzing : t.analyzePrescription}
                 </button>
             </div>
 
@@ -141,8 +140,8 @@ const PrescriptionAnalyzer: React.FC<PrescriptionAnalyzerProps> = ({ language, u
 
             {analysisResult && (
                 <div className="mt-8">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Analysis Report</h2>
-                    <AnalysisResultComponent result={analysisResult} />
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">{t.analysisReport}</h2>
+                    <AnalysisResultComponent result={analysisResult} t={t} />
                 </div>
             )}
         </div>

@@ -12,10 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- Allow inline scripts for development -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:;">
-    
-    <!-- Preload key dependencies -->
-    <link rel="preload" href="/index.tsx" as="script">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' http://localhost:3001 https:;">
     
 <style>
     @keyframes float {

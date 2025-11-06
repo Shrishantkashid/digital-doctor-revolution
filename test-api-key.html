@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drug Database API Key Test</title>
+</head>
+<body>
+    <h1>Drug Database API Key Test</h1>
+    <div id="result"></div>
+
+    <script type="module">
+        // Test if the API key is available
+        const apiKey = import.meta.env.VITE_DRUG_DATABASE_API_KEY;
+        const resultDiv = document.getElementById('result');
+        
+        if (apiKey) {
+            resultDiv.innerHTML = `
+                <h2>API Key Status: FOUND</h2>
+                <p>API Key (first 10 characters): ${apiKey.substring(0, 10)}...</p>
+                <p>Full API Key Length: ${apiKey.length} characters</p>
+                <p>Testing connection to RxNorm API...</p>
+                <div id="api-result"></div>
+            `;
+            
+            // Test RxNorm API
+            fetch('https://rxnav.nlm.nih.gov/REST/rxcui.json?name=Aspirin')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('api-result').innerHTML = `
+                        <h3>RxNorm API Test: SUCCESS</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                })
+                .catch(error => {
+                    document.getElementById('api-result').innerHTML = `
+                        <h3>RxNorm API Test: FAILED</h3>
+                        <p>Error: ${error.message}</p>
+                    `;
+                });
+        } else {
+            resultDiv.innerHTML = '<h2>API Key Status: NOT FOUND</h2><p>Please check your .env file</p>';
+        }
+    </script>
+</body>
+</html>

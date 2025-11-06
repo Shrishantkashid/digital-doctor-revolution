@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import { fileToBase64, blobToBase64, encode, createPcmBlob } from "../utils";
 import { AnalysisResult, MentalHealthAnalysisResult, Language } from "../types";
@@ -6,22 +5,17 @@ import { auditTrail } from "../audit/AuditTrail";
 import { drugDatabaseService } from "./DrugDatabaseService";
 import { dosageValidationService, type PatientInfo } from "./DosageValidationService";
 
-// Language names mapping for the AI prompt
+// Language names mapping for the AI prompt - limited to languages up to Kannada
 const languageNames: Record<Language, string> = {
     en: 'English',
     hi: 'Hindi',
     te: 'Telugu',
     ta: 'Tamil',
-    kn: 'Kannada',
-    ml: 'Malayalam',
-    mr: 'Marathi',
-    bn: 'Bengali',
-    gu: 'Gujarati',
-    pa: 'Punjabi'
+    kn: 'Kannada'
 };
 
 // The API key is assumed to be available in the environment variables.
-const ai = new GoogleGenAI({ apiKey: import.meta.env.GEMINI_API_KEY });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 
 const analysisSchema = {
     type: Type.OBJECT,
@@ -49,7 +43,9 @@ const analysisSchema = {
                 properties: {
                     name: { type: Type.STRING, description: "Name of the medication." },
                     dosage: { type: Type.STRING, description: "Dosage of the medication, e.g., '10mg'." },
-                    frequency: { type: Type.STRING, description: "How often to take the medication, e.g., 'Once daily'." }
+                    frequency: { type: Type.STRING, description: "How often to take the medication, e.g., 'Once daily'." },
+                    description: { type: Type.STRING, description: "What the drug is used to treat." },
+                    timing: { type: Type.STRING, enum: ['Before Food', 'After Food', 'With Food', 'Anytime'], description: "When to take the medication." }
                 },
                 required: ["name", "dosage", "frequency"]
             }
@@ -101,7 +97,7 @@ const analysisSchema = {
                     brandName: { type: Type.STRING, description: "The brand-name drug identified." },
                     genericAlternative: { type: Type.STRING, description: "The suggested generic alternative." },
                     notes: { type: Type.STRING, description: "Notes about switching, e.g., 'Consult your doctor before switching'." },
-                    currentPrice: { type: Type.STRING, description: "Simulated current price for the generic alternative (e.g., '$15.00 for 30 tablets')." },
+                    currentPrice: { type: Type.STRING, description: "Simulated current price for the generic alternative (e.g., '₹15.00 for 30 tablets')." },
                     availability: { type: Type.STRING, description: "Simulated availability (e.g., 'Available at PharmaCo, City Drug Store')." }
                 },
                 required: ["brandName", "genericAlternative", "notes", "currentPrice", "availability"]
@@ -152,8 +148,6 @@ interface AnalyzePrescriptionParams {
     allergies: string;
     age: string;
     conditions: string;
-    isPregnant: boolean;
-    isBreastfeeding: boolean;
     language: Language;
 }
 
@@ -162,8 +156,6 @@ export const analyzePrescription = async ({
     allergies,
     age,
     conditions,
-    isPregnant,
-    isBreastfeeding,
     language
 }: AnalyzePrescriptionParams): Promise<AnalysisResult> => {
 
@@ -179,24 +171,41 @@ export const analyzePrescription = async ({
 - Allergies: ${allergies || 'None listed'}
 - Age: ${age || 'Not provided'}
 - Pre-existing conditions: ${conditions || 'None listed'}
-- Pregnant: ${isPregnant ? 'Yes' : 'No'}
-- Breastfeeding: ${isBreastfeeding ? 'Yes' : 'No'}
     `.trim();
 
     const textPart = {
-        text: `You are an expert pharmacist AI. Your task is to analyze the provided image of a medical prescription and the patient's health profile.
+        text: `You are an expert pharmacist AI with extensive experience in reading various handwriting styles, including cursive, printed, and潦草 (sloppy) handwriting. Your task is to carefully analyze the provided image of a medical prescription and the patient's health profile.
         
 Patient Health Profile:
 ${patientInfo}
 
 Please perform the following checks and provide the output in a structured JSON format. **All textual responses within the JSON object should be in ${languageNames[language]}**.
 
-1.  **Medication Identification**: Identify all medications, their dosages, and frequencies from the prescription. If information is not available, use "N/A".
-2.  **Drug Interactions**: Check for potential interactions between the prescribed medications.
-3.  **Allergy Alerts**: Cross-reference the medications with the patient's list of allergies.
-4.  **Enhanced Safety Alerts**: Check for contraindications or warnings related to the patient's age, pre-existing conditions, pregnancy, or breastfeeding status.
-5.  **Cost Optimization**: Suggest generic alternatives for any brand-name drugs. For each generic alternative, **simulate** providing current pricing and local availability information. Assume you have access to up-to-date pharmaceutical databases for this simulation.
-6.  **Confidence Score**: Provide a confidence level (High, Medium, or Low) for the analysis and a brief reason (e.g., clarity of the image, legibility of handwriting).
+1.  **Medication Identification**: Identify all medications, their dosages, and frequencies from the prescription. If information is not available, use "N/A". Pay special attention to:
+    - Different handwriting styles (cursive, printed,潦草/sloppy)
+    - Common medical abbreviations (e.g., "q.d." for once daily, "b.i.d." for twice daily)
+    - Numbers that might be unclear (e.g., distinguishing between 1 and 7, 0 and O)
+    - Common medication names that might be misspelled due to poor handwriting
+
+2.  **Drug Information Enhancement**: For each identified medication, provide:
+    - A brief description of what the drug is used to treat
+    - The optimal timing for taking the medication (Before Food, After Food, With Food, or Anytime)
+    - Disease matching analysis: Compare the patient's conditions with the drug's intended use and provide a recommendation
+
+3.  **Drug Interactions**: Check for potential interactions between the prescribed medications.
+
+4.  **Allergy Alerts**: Cross-reference the medications with the patient's list of allergies.
+
+5.  **Enhanced Safety Alerts**: Check for contraindications or warnings related to the patient's age and pre-existing conditions.
+
+6.  **Cost Optimization**: Suggest generic alternatives for any brand-name drugs. For each generic alternative, **simulate** providing current pricing and local availability information. Use Indian Rupees (₹) for all pricing. Assume you have access to up-to-date pharmaceutical databases for this simulation.
+
+7.  **Confidence Score**: Provide a confidence level (High, Medium, or Low) for the analysis and a brief reason (e.g., clarity of the image, legibility of handwriting).
+
+If you encounter unclear handwriting:
+- Make educated guesses based on context and common medical terms
+- Note your uncertainty in the confidence reasoning
+- If completely unable to read something, mark it as "UNREADABLE" and explain why in the confidence reasoning
 
 Return *only* the JSON object that adheres to the provided schema. Do not include any explanatory text, markdown formatting, or code blocks before or after the JSON. If no interactions, alerts, or optimizations are found, return an empty array for the corresponding key.`
     };
@@ -221,8 +230,6 @@ Return *only* the JSON object that adheres to the provided schema. Do not includ
     const patientData: PatientInfo = {
       age: age ? parseInt(age, 10) : 0,
       conditions: conditions ? conditions.split(',').map(c => c.trim()) : [],
-      isPregnant: isPregnant,
-      isBreastfeeding: isBreastfeeding
     };
     
     // Validate dosages for each medication
@@ -285,7 +292,7 @@ Return *only* the JSON object that adheres to the provided schema. Do not includ
         const pharmacyPrices = drugInfo.typicalPrices;
         
         // Select the best price (lowest)
-        let bestPrice = opt.currentPrice || '$0.00 for 30 tablets';
+        let bestPrice = opt.currentPrice || '₹0.00 for 30 tablets';
         let bestAvailability = opt.availability || 'Unknown';
         
         for (const [pharmacy, info] of Object.entries(pharmacyPrices)) {
@@ -304,8 +311,18 @@ Return *only* the JSON object that adheres to the provided schema. Do not includ
           availability: bestAvailability
         });
       } else {
-        // If we can't get real information, keep the AI suggestion
-        enhancedCostOptimization.push(opt);
+        // If we can't get real information, keep the AI suggestion but ensure it's in Rupees
+        let price = opt.currentPrice || '₹0.00 for 30 tablets';
+        // Convert any USD prices to Rupees (using approximate conversion rate)
+        if (price.includes('$')) {
+          const dollarAmount = parseFloat(price.replace(/[^0-9.]/g, ''));
+          const rupeeAmount = (dollarAmount * 83).toFixed(2); // Approximate conversion rate
+          price = `₹${rupeeAmount} for 30 tablets`;
+        }
+        enhancedCostOptimization.push({
+          ...opt,
+          currentPrice: price
+        });
       }
     }
     
@@ -326,8 +343,6 @@ Return *only* the JSON object that adheres to the provided schema. Do not includ
             allergies,
             age,
             conditions,
-            isPregnant,
-            isBreastfeeding,
             language
         },
         result,

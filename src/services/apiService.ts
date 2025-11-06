@@ -11,6 +11,13 @@ export const authAPI = {
       body: JSON.stringify({ username, password, email }),
     });
     
+    // Check if response is JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}...`);
+    }
+    
     const data = await response.json();
     if (!data.success) {
       throw new Error(data.message);
@@ -27,6 +34,13 @@ export const authAPI = {
       },
       body: JSON.stringify({ username, password }),
     });
+    
+    // Check if response is JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}...`);
+    }
     
     const data = await response.json();
     if (!data.success) {
@@ -50,8 +64,6 @@ export const prescriptionAPI = {
     allergies: string,
     age: string,
     conditions: string,
-    isPregnant: boolean,
-    isBreastfeeding: boolean,
     analysisResult: any
   ) => {
     const response = await fetch(`${API_BASE_URL}/prescriptions`, {
@@ -66,11 +78,16 @@ export const prescriptionAPI = {
         allergies,
         age,
         conditions,
-        isPregnant,
-        isBreastfeeding,
         analysisResult
       }),
     });
+    
+    // Check if response is JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}...`);
+    }
     
     const data = await response.json();
     if (!data.success) {
@@ -82,6 +99,13 @@ export const prescriptionAPI = {
   
   getPrescriptionsByUser: async (userId: string) => {
     const response = await fetch(`${API_BASE_URL}/prescriptions/${userId}`);
+    
+    // Check if response is JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}...`);
+    }
     
     const data = await response.json();
     if (!data.success) {
@@ -96,6 +120,14 @@ export const prescriptionAPI = {
 export const healthAPI = {
   check: async () => {
     const response = await fetch(`${API_BASE_URL}/health`);
+    
+    // Check if response is JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}...`);
+    }
+    
     return response.json();
   }
 };

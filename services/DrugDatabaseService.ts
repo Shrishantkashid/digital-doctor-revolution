@@ -29,8 +29,8 @@ class DrugDatabaseService {
   private baseUrl: string = 'https://api.drugdatabase.example'; // Placeholder URL
 
   constructor(apiKey?: string) {
-    // @ts-ignore
-    this.apiKey = apiKey || process.env.DRUG_DATABASE_API_KEY;
+    // Use Vite environment variables for browser compatibility
+    this.apiKey = apiKey || import.meta.env.VITE_DRUG_DATABASE_API_KEY || '';
   }
 
   // Get drug information by name
@@ -42,7 +42,7 @@ class DrugDatabaseService {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 100));
       
-      // Return simulated drug information
+      // Return simulated drug information with Indian Rupees
       const drugInfo: DrugInfo = {
         name: drugName,
         genericName: this.getGenericName(drugName),
@@ -51,15 +51,15 @@ class DrugDatabaseService {
         dosageForms: ['Tablet', 'Capsule'],
         typicalPrices: {
           'PharmaCo': {
-            price: '$15.99 for 30 tablets',
+            price: '₹15.99 for 30 tablets',
             availability: 'In Stock'
           },
           'City Drug Store': {
-            price: '$12.50 for 30 tablets',
+            price: '₹12.50 for 30 tablets',
             availability: 'Limited Stock'
           },
           'Online Pharmacy': {
-            price: '$10.99 for 30 tablets',
+            price: '₹10.99 for 30 tablets',
             availability: 'In Stock'
           }
         },

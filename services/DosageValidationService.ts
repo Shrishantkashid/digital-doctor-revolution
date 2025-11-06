@@ -16,8 +16,6 @@ interface PatientInfo {
   age: number;          // Age in years
   weight?: number;      // Weight in kg
   conditions?: string[]; // Pre-existing medical conditions
-  isPregnant?: boolean; // Whether the patient is pregnant
-  isBreastfeeding?: boolean; // Whether the patient is breastfeeding
 }
 
 interface DosageValidationResult {
@@ -39,7 +37,7 @@ class DosageValidationService {
     'Lisinopril': [
       { minAge: 6, maxAge: 12, dosage: '2.5-5 mg', frequency: 'Once daily', warnings: ['Start with lower dose'] },
       { minAge: 12, dosage: '10 mg', frequency: 'Once daily', maxDailyDose: '40 mg' },
-      { minAge: 65, dosage: '5 mg', frequency: 'Once daily', warnings: ['May require lower starting dose'] }
+      { minAge: 65, dosage: '5 mg', frequency: 'Once daily', warnings: ['Start with lower dose'] }
     ],
     'Metformin': [
       { minAge: 10, dosage: '500 mg', frequency: 'Twice daily', maxDailyDose: '2000 mg' },
@@ -58,9 +56,9 @@ class DosageValidationService {
   // Contraindications for drugs
   private contraindications: { [drugName: string]: string[] } = {
     'Warfarin': ['Active bleeding', 'Severe liver disease'],
-    'Lisinopril': ['Pregnancy', 'Angioedema history'],
+    'Lisinopril': ['Angioedema history'],
     'Metformin': ['Severe kidney disease', 'Heart failure'],
-    'Atorvastatin': ['Pregnancy', 'Active liver disease']
+    'Atorvastatin': ['Active liver disease']
   };
 
   // Validate a dosage for a specific drug and patient
@@ -134,17 +132,6 @@ class DosageValidationService {
     // Check contraindications
     if (this.contraindications[drugName]) {
       const patientConditions = patientInfo.conditions || [];
-      
-      // Check for pregnancy/breastfeeding contraindications
-      if (patientInfo.isPregnant && this.contraindications[drugName].includes('Pregnancy')) {
-        result.contraindications.push(`${drugName} is contraindicated during pregnancy`);
-        result.isValid = false;
-      }
-      
-      if (patientInfo.isBreastfeeding && this.contraindications[drugName].includes('Breastfeeding')) {
-        result.contraindications.push(`${drugName} is contraindicated during breastfeeding`);
-        result.isValid = false;
-      }
       
       // Check for condition-based contraindications
       for (const condition of patientConditions) {

@@ -1,5 +1,5 @@
 // Test multi-language support
-import { Language } from '../types';
+import { Language } from '../types.js';
 
 // Language names mapping
 const languageNames: Record<Language, string> = {

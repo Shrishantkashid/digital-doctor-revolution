@@ -1,8 +1,9 @@
-
 import React, { useState, useCallback } from 'react';
+import { TranslationKeys } from '../services/translationService';
 
 interface PrescriptionUploaderProps {
     onFileSelect: (file: File) => void;
+    t?: Record<keyof TranslationKeys, string>;
 }
 
 const UploadIcon = () => (
@@ -11,9 +12,19 @@ const UploadIcon = () => (
     </svg>
 );
 
-const PrescriptionUploader: React.FC<PrescriptionUploaderProps> = ({ onFileSelect }) => {
+const PrescriptionUploader: React.FC<PrescriptionUploaderProps> = ({ onFileSelect, t }) => {
     const [fileName, setFileName] = useState<string | null>(null);
     const [isDragging, setIsDragging] = useState(false);
+    
+    // Default translations
+    const defaultT = {
+        clickToUpload: 'Click to upload',
+        dragDrop: 'Drag and drop',
+        imageTypes: 'PNG, JPG, or WEBP',
+        uploadPrescription: 'Upload Prescription'
+    };
+    
+    const translations = t || defaultT;
 
     const handleFileChange = (files: FileList | null) => {
         if (files && files.length > 0) {
@@ -53,6 +64,17 @@ const PrescriptionUploader: React.FC<PrescriptionUploaderProps> = ({ onFileSelec
 
     return (
         <div className="w-full">
+            <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <h3 className="text-sm font-semibold text-blue-800 mb-2">Tips for Best Results:</h3>
+                <ul className="text-xs text-blue-700 list-disc pl-5 space-y-1">
+                    <li>Ensure good lighting when taking the photo</li>
+                    <li>Place the prescription on a flat, contrasting surface</li>
+                    <li>Hold the camera directly above the prescription</li>
+                    <li>Make sure all text is in focus and readable</li>
+                    <li>Include the entire prescription in the frame</li>
+                </ul>
+            </div>
+            
             <label
                 onDragEnter={handleDragEnter}
                 onDragLeave={handleDragLeave}
@@ -64,9 +86,9 @@ const PrescriptionUploader: React.FC<PrescriptionUploaderProps> = ({ onFileSelec
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <UploadIcon />
                     <p className="mb-2 text-sm text-gray-500">
-                        <span className="font-semibold">Click to upload</span> or drag and drop
+                        <span className="font-semibold">{translations.clickToUpload}</span> or {translations.dragDrop.toLowerCase()}
                     </p>
-                    <p className="text-xs text-gray-500">PNG, JPG, or WEBP</p>
+                    <p className="text-xs text-gray-500">{translations.imageTypes}</p>
                 </div>
                 {fileName && (
                     <div className="bg-green-100 text-green-800 text-sm font-medium px-4 py-2 rounded-full -mt-2">

@@ -36,11 +36,25 @@ if (process.env.NODE_ENV === 'production') {
 // MongoDB connection
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI as string);
+    console.log('Attempting to connect to MongoDB...');
+    console.log('Using URI:', process.env.MONGODB_URI);
+    
+    // Add connection options with timeout
+    const conn = await mongoose.connect(process.env.MONGODB_URI as string, {
+      serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
+      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    });
+    
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     console.log(`MongoDB Database: ${conn.connection.name}`);
+    console.log(`MongoDB Port: ${conn.connection.port}`);
   } catch (error) {
-    console.error(`Error: ${(error as Error).message}`);
+    console.error(`MongoDB Connection Error: ${(error as Error).message}`);
+    console.error('Please check:');
+    console.error('1. Your MongoDB Atlas cluster is running');
+    console.error('2. Your IP address is whitelisted in MongoDB Atlas');
+    console.error('3. Your username and password are correct');
+    console.error('4. The database URI is correctly formatted');
     process.exit(1);
   }
 };
@@ -89,7 +103,7 @@ app.post('/api/auth/login', async (req, res) => {
 // Save prescription
 app.post('/api/prescriptions', async (req, res) => {
   try {
-    const { userId, image, medications, allergies, age, conditions, isPregnant, isBreastfeeding, analysisResult } = req.body;
+    const { userId, image, medications, allergies, age, conditions, analysisResult } = req.body;
     const prescription = await prescriptionService.savePrescription(
       userId,
       image,
@@ -97,8 +111,6 @@ app.post('/api/prescriptions', async (req, res) => {
       allergies,
       age,
       conditions,
-      isPregnant,
-      isBreastfeeding,
       analysisResult
     );
     res.status(201).json({ 

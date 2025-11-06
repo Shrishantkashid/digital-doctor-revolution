@@ -1,5 +1,6 @@
 import React from 'react';
-import { Language } from '../types';
+import { Language, Tool } from '../types';
+import { TranslationKeys } from '../services/translationService';
 
 interface HeaderProps {
     isAuthenticated: boolean;
@@ -7,9 +8,12 @@ interface HeaderProps {
     onHomeClick: () => void;
     currentLanguage: Language;
     onLanguageChange: (lang: Language) => void;
+    currentToolView: Tool;
+    onToolSelect: (tool: Tool) => void;
+    t?: Record<keyof TranslationKeys, string>;
 }
 
-// Language names mapping
+// Language names mapping - all languages
 const languageNames: Record<Language, string> = {
     en: 'English',
     hi: 'हिन्दी',
@@ -23,7 +27,28 @@ const languageNames: Record<Language, string> = {
     pa: 'ਪੰਜਾਬੀ'
 };
 
-const Header: React.FC<HeaderProps> = ({ isAuthenticated, onLogout, onHomeClick, currentLanguage, onLanguageChange }) => {
+const Header: React.FC<HeaderProps> = ({ 
+    isAuthenticated, 
+    onLogout, 
+    onHomeClick, 
+    currentLanguage, 
+    onLanguageChange,
+    currentToolView,
+    onToolSelect,
+    t
+}) => {
+    // Default translations (English)
+    const defaultT = {
+        home: 'Home',
+        logout: 'Logout',
+        prescriptionValidator: 'Prescription Validator',
+        mentalHealthMonitor: 'Mental Health Monitor',
+        chatBot: 'Chat Bot'
+    };
+    
+    // Use provided translations or fall back to defaults
+    const translations = t || defaultT;
+
     return (
         <header className="bg-gradient-to-r from-blue-600 to-purple-600 shadow-md sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,6 +62,65 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated, onLogout, onHomeClick,
                             <span className="text-white text-2xl font-bold ml-3">Digital Doctor AI</span>
                         </button>
                     </div>
+                    
+                    {/* Navigation buttons - only show when on Prescription Validator or Mental Health Monitor */}
+                    {isAuthenticated && (currentToolView === 'prescription' || currentToolView === 'mentalHealth' || currentToolView === 'chatbot') && (
+                        <div className="hidden md:flex items-center space-x-4">
+                            <button
+                                onClick={() => onToolSelect('landing')}
+                                className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                            >
+                                {translations.home}
+                            </button>
+                            {currentToolView === 'prescription' ? (
+                                <>
+                                    <button
+                                        onClick={() => onToolSelect('mentalHealth')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.mentalHealthMonitor}
+                                    </button>
+                                    <button
+                                        onClick={() => onToolSelect('chatbot')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.chatBot}
+                                    </button>
+                                </>
+                            ) : currentToolView === 'mentalHealth' ? (
+                                <>
+                                    <button
+                                        onClick={() => onToolSelect('prescription')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.prescriptionValidator}
+                                    </button>
+                                    <button
+                                        onClick={() => onToolSelect('chatbot')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.chatBot}
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <button
+                                        onClick={() => onToolSelect('prescription')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.prescriptionValidator}
+                                    </button>
+                                    <button
+                                        onClick={() => onToolSelect('mentalHealth')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.mentalHealthMonitor}
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                    )}
+                    
                     <div className="flex items-center space-x-4">
                         <div className="relative inline-block text-left">
                             <select
@@ -55,12 +139,72 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated, onLogout, onHomeClick,
                                 onClick={onLogout}
                                 className="px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                             >
-                                Logout
+                                {translations.logout}
                             </button>
                         )}
                     </div>
                 </div>
             </div>
+            
+            {/* Mobile navigation - only show when on Prescription Validator or Mental Health Monitor */}
+            {isAuthenticated && (currentToolView === 'prescription' || currentToolView === 'mentalHealth' || currentToolView === 'chatbot') && (
+                <div className="md:hidden bg-blue-700 px-4 py-2">
+                    <div className="flex justify-around">
+                        <button
+                            onClick={() => onToolSelect('landing')}
+                            className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                        >
+                            {translations.home}
+                        </button>
+                        {currentToolView === 'prescription' ? (
+                            <>
+                                <button
+                                    onClick={() => onToolSelect('mentalHealth')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.mentalHealthMonitor}
+                                </button>
+                                <button
+                                    onClick={() => onToolSelect('chatbot')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.chatBot}
+                                </button>
+                            </>
+                        ) : currentToolView === 'mentalHealth' ? (
+                            <>
+                                <button
+                                    onClick={() => onToolSelect('prescription')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.prescriptionValidator}
+                                </button>
+                                <button
+                                    onClick={() => onToolSelect('chatbot')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.chatBot}
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button
+                                    onClick={() => onToolSelect('prescription')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.prescriptionValidator}
+                                </button>
+                                <button
+                                    onClick={() => onToolSelect('mentalHealth')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.mentalHealthMonitor}
+                                </button>
+                            </>
+                        )}
+                    </div>
+                </div>
+            )}
         </header>
     );
 };
