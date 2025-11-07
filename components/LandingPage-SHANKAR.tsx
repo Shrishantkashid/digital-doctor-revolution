@@ -18,7 +18,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToolSelect, t }) => {
     // Default translations (English)
     const defaultT = {
         welcomeTitle: 'Digital Health Assistant',
-        welcomeDescription: 'Your personal AI health companion',
+        welcomeDescription: 'Your personal AI health companion for prescription analysis, drug interaction checking, and mental wellness support. Get instant insights and recommendations powered by advanced AI technology.',
         prescriptionValidator: 'Prescription Validator',
         mentalHealthMonitor: 'Mental Health Monitor'
     };

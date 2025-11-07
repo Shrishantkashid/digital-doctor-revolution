@@ -18,7 +18,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToolSelect, t }) => {
     // Default translations (English)
     const defaultT = {
         welcomeTitle: 'Welcome to Digital Doctor AI',
-        welcomeDescription: 'Your AI-powered health assistant for prescription validation and mental health monitoring.',
+        welcomeDescription: 'Your advanced AI-powered health assistant for prescription validation, dosage verification, and mental health monitoring. Upload prescriptions, check for drug interactions, and get personalized health insights.',
         prescriptionValidator: 'Prescription Validator',
         mentalHealthMonitor: 'Mental Health Monitor'
     };
