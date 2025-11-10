@@ -50,10 +50,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToolSelect, t }) => {
             </div>
             <div className="relative z-10 w-full max-w-4xl text-center">
                 <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
-                    Welcome to Digital Doctor AI
+                    {translations.welcomeTitle}
                 </h1>
                 <p className="text-lg md:text-xl text-blue-200 mb-8 max-w-3xl mx-auto">
-                    Your advanced AI-powered health assistant for prescription validation, dosage verification, and mental health monitoring. Upload prescriptions, check for drug interactions, and get personalized health insights.
+                    {translations.welcomeDescription}
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">

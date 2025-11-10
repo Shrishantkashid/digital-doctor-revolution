@@ -257,6 +257,10 @@ const translations: Record<Language, TranslationKeys> = {
   },
   
   bn: {
+    // Common
+    home: 'Home',
+    logout: 'Logout',
+    
     // Landing Page
     // Landing Page
     welcomeTitle: 'डिजिटल डॉक्टर एआई में आपका स्वागत है',
@@ -634,391 +638,9 @@ const translations: Record<Language, TranslationKeys> = {
   },
   
   // For languages without translations, fall back to English
-  ml: {
-    // Common
-    home: 'Home',
-    logout: 'Logout',
-    
-    // Landing Page
-    welcomeTitle: 'Welcome to Digital Doctor AI',
-    welcomeDescription: 'Your AI-powered health assistant for prescription validation and mental health monitoring.',
-    prescriptionValidator: 'Prescription Validator',
-    mentalHealthMonitor: 'Mental Health Monitor',
-    
-    // Prescription Analyzer
-    prescriptionAnalysis: 'Prescription Analysis',
-    prescriptionDescription: 'Upload an image of your prescription and provide any relevant health information. Our AI will analyze it for potential issues and insights.',
-    prescriptionNote: 'Note: Our AI is designed to read various handwriting styles, including cursive and潦草 (sloppy) handwriting. For best results, ensure the prescription image is clear and well-lit.',
-    uploadPrescription: 'Upload Prescription',
-    dragDrop: 'Drag and drop',
-    clickToUpload: 'Click to upload',
-    imageTypes: 'PNG, JPG, or WEBP',
-    allergies: 'Allergies',
-    allergiesPlaceholder: 'e.g., Penicillin, Aspirin',
-    age: 'Age',
-    agePlaceholder: 'e.g., 35',
-    conditions: 'Pre-existing Conditions',
-    conditionsPlaceholder: 'e.g., Diabetes, Hypertension',
-    analyzePrescription: 'Analyze Prescription',
-    analyzing: 'Analyzing...',
-    
-    // Mental Health Monitor
-    mentalHealthTitle: 'Mental Health Monitor',
-    mentalHealthDescription: 'Record a short audio message about how you\'re feeling. Our AI will analyze your mood and provide personalized wellness recommendations.',
-    startRecording: 'Start Recording',
-    stopRecording: 'Stop Recording',
-    analyzingMood: 'Analyzing your mood...',
-    moodAnalysis: 'Mood Analysis',
-    
-    // Analysis Results
-    analysisReport: 'Analysis Report',
-    analysisConfidence: 'Analysis Confidence',
-    allergyAlerts: 'Allergy Alerts',
-    safetyAlerts: 'Enhanced Safety Alerts',
-    drugInteractions: 'Drug Interactions',
-    identifiedMedications: 'Identified Medications',
-    costOptimization: 'Cost Optimization',
-    whatItTreats: 'What it treats:',
-    take: 'Take:',
-    matchFound: '✅ Match Found',
-    noMatch: '⚠️ No Match',
-    yourCondition: 'Your condition:',
-    recommendation: 'Recommendation:',
-    
-    // Auth Page
-    login: 'Login',
-    signup: 'Sign Up',
-    username: 'Username',
-    password: 'Password',
-    email: 'Email (optional)',
-    loginButton: 'Login',
-    signupButton: 'Sign Up',
-    needAccount: 'Need an account?',
-    haveAccount: 'Already have an account?',
-    
-    // Patient Info Form
-    additionalInfo: 'Additional Information (Optional)',
-    additionalInfoNote: 'Note: Please list all your current health conditions. This will help us match your medications to your specific needs and provide better timing recommendations.',
-    
-    // Confidence Display
-    confidenceTip: 'Tip: If the confidence is low due to handwriting clarity, try retaking the photo with better lighting and focus.',
-    
-    // Chat Bot
-    chatBotTitle: 'Digital Doctor Assistant',
-    chatBotWelcome: 'Hello! I\'m your Digital Doctor assistant. How can I help you with your prescriptions or medications today?',
-    chatBotPlaceholder: 'Type your question about prescriptions or medications...',
-    chatBotSend: 'Send',
-    chatBotDisclaimer: 'For detailed prescription analysis, please use the Prescription Analyzer tool.',
-    chatBotError: 'Sorry, I encountered an error processing your request. Please try again.',
-    chatBotPrescriptionInfo: 'I can help you analyze prescriptions. Please upload an image of your prescription using the Prescription Analyzer tool, and I\'ll provide detailed information about your medications, including dosages, interactions, and safety alerts.',
-    chatBotSideEffects: 'If you\'re concerned about side effects of your medications, please upload your prescription for analysis. I can identify potential side effects based on your specific medications and dosages.',
-    chatBotInteractions: 'Drug interactions can be serious. To check for potential interactions between your medications, please upload your prescription for analysis.',
-    chatBotDosage: 'Proper dosage is important for medication effectiveness and safety. Please upload your prescription so I can analyze the dosages and provide recommendations based on your health profile.',
-    chatBotHelp: 'I\'m here to help you understand your prescriptions and medications. You can ask me about: Prescription analysis, Medication side effects, Drug interactions, Dosage information. To get started, please upload your prescription using the Prescription Analyzer tool.',
-    chatBotDefault: 'I\'m here to help you understand your prescriptions and medications. You can ask me about: Prescription analysis, Medication side effects, Drug interactions, Dosage information. To get started, please upload your prescription using the Prescription Analyzer tool.'
-  },
-  
-  mr: {
-    // Common
-    home: 'Home',
-    logout: 'Logout',
-    
-    // Landing Page
-    welcomeTitle: 'Welcome to Digital Doctor AI',
-    welcomeDescription: 'Your AI-powered health assistant for prescription validation and mental health monitoring.',
-    prescriptionValidator: 'Prescription Validator',
-    mentalHealthMonitor: 'Mental Health Monitor',
-    
-    // Prescription Analyzer
-    prescriptionAnalysis: 'Prescription Analysis',
-    prescriptionDescription: 'Upload an image of your prescription and provide any relevant health information. Our AI will analyze it for potential issues and insights.',
-    prescriptionNote: 'Note: Our AI is designed to read various handwriting styles, including cursive and潦草 (sloppy) handwriting. For best results, ensure the prescription image is clear and well-lit.',
-    uploadPrescription: 'Upload Prescription',
-    dragDrop: 'Drag and drop',
-    clickToUpload: 'Click to upload',
-    imageTypes: 'PNG, JPG, or WEBP',
-    allergies: 'Allergies',
-    allergiesPlaceholder: 'e.g., Penicillin, Aspirin',
-    age: 'Age',
-    agePlaceholder: 'e.g., 35',
-    conditions: 'Pre-existing Conditions',
-    conditionsPlaceholder: 'e.g., Diabetes, Hypertension',
-    analyzePrescription: 'Analyze Prescription',
-    analyzing: 'Analyzing...',
-    
-    // Mental Health Monitor
-    mentalHealthTitle: 'Mental Health Monitor',
-    mentalHealthDescription: 'Record a short audio message about how you\'re feeling. Our AI will analyze your mood and provide personalized wellness recommendations.',
-    startRecording: 'Start Recording',
-    stopRecording: 'Stop Recording',
-    analyzingMood: 'Analyzing your mood...',
-    moodAnalysis: 'Mood Analysis',
-    
-    // Analysis Results
-    analysisReport: 'Analysis Report',
-    analysisConfidence: 'Analysis Confidence',
-    allergyAlerts: 'Allergy Alerts',
-    safetyAlerts: 'Enhanced Safety Alerts',
-    drugInteractions: 'Drug Interactions',
-    identifiedMedications: 'Identified Medications',
-    costOptimization: 'Cost Optimization',
-    whatItTreats: 'What it treats:',
-    take: 'Take:',
-    matchFound: '✅ Match Found',
-    noMatch: '⚠️ No Match',
-    yourCondition: 'Your condition:',
-    recommendation: 'Recommendation:',
-    
-    // Auth Page
-    login: 'Login',
-    signup: 'Sign Up',
-    username: 'Username',
-    password: 'Password',
-    email: 'Email (optional)',
-    loginButton: 'Login',
-    signupButton: 'Sign Up',
-    needAccount: 'Need an account?',
-    haveAccount: 'Already have an account?',
-    
-    // Patient Info Form
-    additionalInfo: 'Additional Information (Optional)',
-    additionalInfoNote: 'Note: Please list all your current health conditions. This will help us match your medications to your specific needs and provide better timing recommendations.',
-    
-    // Confidence Display
-    confidenceTip: 'Tip: If the confidence is low due to handwriting clarity, try retaking the photo with better lighting and focus.',
-    
-    // Chat Bot
-    chatBotTitle: 'Digital Doctor Assistant',
-    chatBotWelcome: 'Hello! I\'m your Digital Doctor assistant. How can I help you with your prescriptions or medications today?',
-    chatBotPlaceholder: 'Type your question about prescriptions or medications...',
-    chatBotSend: 'Send',
-    chatBotDisclaimer: 'For detailed prescription analysis, please use the Prescription Analyzer tool.',
-    chatBotError: 'Sorry, I encountered an error processing your request. Please try again.',
-    chatBotPrescriptionInfo: 'I can help you analyze prescriptions. Please upload an image of your prescription using the Prescription Analyzer tool, and I\'ll provide detailed information about your medications, including dosages, interactions, and safety alerts.',
-    chatBotSideEffects: 'If you\'re concerned about side effects of your medications, please upload your prescription for analysis. I can identify potential side effects based on your specific medications and dosages.',
-    chatBotInteractions: 'Drug interactions can be serious. To check for potential interactions between your medications, please upload your prescription for analysis.',
-    chatBotDosage: 'Proper dosage is important for medication effectiveness and safety. Please upload your prescription so I can analyze the dosages and provide recommendations based on your health profile.',
-    chatBotHelp: 'I\'m here to help you understand your prescriptions and medications. You can ask me about: Prescription analysis, Medication side effects, Drug interactions, Dosage information. To get started, please upload your prescription using the Prescription Analyzer tool.',
-    chatBotDefault: 'I\'m here to help you understand your prescriptions and medications. You can ask me about: Prescription analysis, Medication side effects, Drug interactions, Dosage information. To get started, please upload your prescription using the Prescription Analyzer tool.'
-  },
-  
-  bn: {
-    // Landing Page
-    welcomeTitle: 'Welcome to Digital Doctor AI',
-    welcomeDescription: 'Your AI-powered health assistant for prescription validation and mental health monitoring.',
-    prescriptionValidator: 'Prescription Validator',
-    mentalHealthMonitor: 'Mental Health Monitor',
-    
-    // Prescription Analyzer
-    prescriptionAnalysis: 'Prescription Analysis',
-    prescriptionDescription: 'Upload an image of your prescription and provide any relevant health information. Our AI will analyze it for potential issues and insights.',
-    prescriptionNote: 'Note: Our AI is designed to read various handwriting styles, including cursive and潦草 (sloppy) handwriting. For best results, ensure the prescription image is clear and well-lit.',
-    uploadPrescription: 'Upload Prescription',
-    dragDrop: 'Drag and drop',
-    clickToUpload: 'Click to upload',
-    imageTypes: 'PNG, JPG, or WEBP',
-    allergies: 'Allergies',
-    allergiesPlaceholder: 'e.g., Penicillin, Aspirin',
-    age: 'Age',
-    agePlaceholder: 'e.g., 35',
-    conditions: 'Pre-existing Conditions',
-    conditionsPlaceholder: 'e.g., Diabetes, Hypertension',
-    analyzePrescription: 'Analyze Prescription',
-    analyzing: 'Analyzing...',
-    
-    // Mental Health Monitor
-    mentalHealthTitle: 'Mental Health Monitor',
-    mentalHealthDescription: 'Record a short audio message about how you\'re feeling. Our AI will analyze your mood and provide personalized wellness recommendations.',
-    startRecording: 'Start Recording',
-    stopRecording: 'Stop Recording',
-    analyzingMood: 'Analyzing your mood...',
-    moodAnalysis: 'Mood Analysis',
-    
-    // Analysis Results
-    analysisReport: 'Analysis Report',
-    analysisConfidence: 'Analysis Confidence',
-    allergyAlerts: 'Allergy Alerts',
-    safetyAlerts: 'Enhanced Safety Alerts',
-    drugInteractions: 'Drug Interactions',
-    identifiedMedications: 'Identified Medications',
-    costOptimization: 'Cost Optimization',
-    whatItTreats: 'What it treats:',
-    take: 'Take:',
-    matchFound: '✅ Match Found',
-    noMatch: '⚠️ No Match',
-    yourCondition: 'Your condition:',
-    recommendation: 'Recommendation:',
-    
-    // Auth Page
-    login: 'Login',
-    signup: 'Sign Up',
-    username: 'Username',
-    password: 'Password',
-    email: 'Email (optional)',
-    loginButton: 'Login',
-    signupButton: 'Sign Up',
-    needAccount: 'Need an account?',
-    haveAccount: 'Already have an account?',
-    
-    // Patient Info Form
-    additionalInfo: 'Additional Information (Optional)',
-    additionalInfoNote: 'Note: Please list all your current health conditions. This will help us match your medications to your specific needs and provide better timing recommendations.',
-    
-    // Confidence Display
-    confidenceTip: 'Tip: If the confidence is low due to handwriting clarity, try retaking the photo with better lighting and focus.',
-    
-    // Chat Bot
-    chatBotTitle: 'Digital Doctor Assistant',
-    chatBotWelcome: 'Hello! I\'m your Digital Doctor assistant. How can I help you with your prescriptions or medications today?',
-    chatBotPlaceholder: 'Type your question about prescriptions or medications...',
-    chatBotSend: 'Send',
-    chatBotDisclaimer: 'For detailed prescription analysis, please use the Prescription Analyzer tool.',
-    chatBotError: 'Sorry, I encountered an error processing your request. Please try again.',
-    chatBotPrescriptionInfo: 'I can help you analyze prescriptions. Please upload an image of your prescription using the Prescription Analyzer tool, and I\'ll provide detailed information about your medications, including dosages, interactions, and safety alerts.',
-    chatBotSideEffects: 'If you\'re concerned about side effects of your medications, please upload your prescription for analysis. I can identify potential side effects based on your specific medications and dosages.',
-    chatBotInteractions: 'Drug interactions can be serious. To check for potential interactions between your medications, please upload your prescription for analysis.',
-    chatBotDosage: 'Proper dosage is important for medication effectiveness and safety. Please upload your prescription so I can analyze the dosages and provide recommendations based on your health profile.',
-    chatBotHelp: 'I\'m here to help you understand your prescriptions and medications. You can ask me about: Prescription analysis, Medication side effects, Drug interactions, Dosage information. To get started, please upload your prescription using the Prescription Analyzer tool.',
-    chatBotDefault: 'I\'m here to help you understand your prescriptions and medications. You can ask me about: Prescription analysis, Medication side effects, Drug interactions, Dosage information. To get started, please upload your prescription using the Prescription Analyzer tool.'
-  },
-  
-  bn: {
-    // Common
-    home: 'Home',
-  },
-  
   gu: {
     // Common
     home: 'Home',
-  },
-  
-  en: {
-    // Common
-    home: 'Home',
-  },
-  
-  hi: {
-    // Common
-    home: 'Home',
-  },
-  
-  kn: {
-    // Common
-    home: 'Home',
-  },
-  
-  ml: {
-    // Common
-    home: 'Home',
-  },
-  
-  mr: {
-    // Common
-    home: 'Home',
-  },
-  
-  pa: {
-    // Common
-    home: 'Home',
-  },
-  
-  ta: {
-    // Common
-    home: 'Home',
-  },
-  
-  te: {
-    // Common
-    home: 'Home',
-  },
-  
-  ur: {
-    // Common
-    home: 'Home',
-    logout: 'Logout',
-    
-    // Landing Page
-    welcomeTitle: 'Welcome to Digital Doctor AI',
-    welcomeDescription: 'Your AI-powered health assistant for prescription validation and mental health monitoring.',
-    prescriptionValidator: 'Prescription Validator',
-    mentalHealthMonitor: 'Mental Health Monitor',
-    
-    // Prescription Analyzer
-    prescriptionAnalysis: 'Prescription Analysis',
-    prescriptionDescription: 'Upload an image of your prescription and provide any relevant health information. Our AI will analyze it for potential issues and insights.',
-    prescriptionNote: 'Note: Our AI is designed to read various handwriting styles, including cursive and潦草 (sloppy) handwriting. For best results, ensure the prescription image is clear and well-lit.',
-    uploadPrescription: 'Upload Prescription',
-    dragDrop: 'Drag and drop',
-    clickToUpload: 'Click to upload',
-    imageTypes: 'PNG, JPG, or WEBP',
-    allergies: 'Allergies',
-    allergiesPlaceholder: 'e.g., Penicillin, Aspirin',
-    age: 'Age',
-    agePlaceholder: 'e.g., 35',
-    conditions: 'Pre-existing Conditions',
-    conditionsPlaceholder: 'e.g., Diabetes, Hypertension',
-    analyzePrescription: 'Analyze Prescription',
-    analyzing: 'Analyzing...',
-    
-    // Mental Health Monitor
-    mentalHealthTitle: 'Mental Health Monitor',
-    mentalHealthDescription: 'Record a short audio message about how you\'re feeling. Our AI will analyze your mood and provide personalized wellness recommendations.',
-    startRecording: 'Start Recording',
-    stopRecording: 'Stop Recording',
-    analyzingMood: 'Analyzing your mood...',
-    moodAnalysis: 'Mood Analysis',
-    
-    // Analysis Results
-    analysisReport: 'Analysis Report',
-    analysisConfidence: 'Analysis Confidence',
-    allergyAlerts: 'Allergy Alerts',
-    safetyAlerts: 'Enhanced Safety Alerts',
-    drugInteractions: 'Drug Interactions',
-    identifiedMedications: 'Identified Medications',
-    costOptimization: 'Cost Optimization',
-    whatItTreats: 'What it treats:',
-    take: 'Take:',
-    matchFound: '✅ Match Found',
-    noMatch: '⚠️ No Match',
-    yourCondition: 'Your condition:',
-    recommendation: 'Recommendation:',
-    
-    // Auth Page
-    login: 'Login',
-    signup: 'Sign Up',
-    username: 'Username',
-    password: 'Password',
-    email: 'Email (optional)',
-    loginButton: 'Login',
-    signupButton: 'Sign Up',
-    needAccount: 'Need an account?',
-    haveAccount: 'Already have an account?',
-    
-    // Patient Info Form
-    additionalInfo: 'Additional Information (Optional)',
-    additionalInfoNote: 'Note: Please list all your current health conditions. This will help us match your medications to your specific needs and provide better timing recommendations.',
-    
-    // Confidence Display
-    confidenceTip: 'ટિપ: જો હસ્તાક્ષરની સ્પષ્ટતાને કારણે આત્મવિશ્વાસ ઓછો હોય, તો વધુ સારા પ્રકાશ અને ફોકસ સાથે ફોટો ફરીથી લેવાનો પ્રયત્ન કરો.',
-    
-    // Chat Bot
-    chatBotTitle: 'ડિજિટલ ડોક્ટર સહાયક',
-    chatBotWelcome: 'હેલ્લો! હું તમારો ડિજિટલ ડોક્ટર સહાયક છું. શું હું તમારી પ્રિસ્ક્રિપ્શન અથવા દવાઓની મદદ કરી શકું?',
-    chatBotPlaceholder: 'તમારા પ્રિસ્ક્રિપ્શન અથવા દવાઓ વિશે તમારો પ્રશ્ન ટાઇપ કરો...',
-    chatBotSend: 'મોકલો',
-    chatBotDisclaimer: 'વિગતવાર પ્રિસ્ક્રિપ્શન વિશ્લેષણ માટે, કૃપા કરીને પ્રિસ્ક્રિપ્શન એનાલાઇઝર ટૂલનો ઉપયોગ કરો.',
-    chatBotError: 'માફ કરશો, મને તમારી વિનંતીનું પ્રક્રિયા કરવામાં ભૂલ આવી. કૃપા કરીને ફરી પ્રયત્ન કરો.',
-    chatBotPrescriptionInfo: 'હું તમારી પ્રિસ્ક્રિપ્શનનું વિશ્લેષણ કરવામાં તમારી મદદ કરી શકું. પ્રિસ્ક્રિપ્શન એનાલાઇઝર ટૂલનો ઉપયોગ કરીને તમારી પ્રિસ્ક્રિપ્શનની છબી અપલોડ કરો, અને હું તમારી દવાઓ, ડોઝેજ, સંવાદો અને સુરક્ષા ચેતવણીઓ વિશે વિગતવાર માહિતી આપીશ.',
-    chatBotSideEffects: 'જો તમને તમારી દવાઓના બાજુની અસરો વિશે ચિંતા છે, તો વિશ્લેષણ માટે તમારી પ્રિસ્ક્રિપ્શન અપલોડ કરો. હું તમારી ચોક્કસ દવાઓ અને ડોઝેજના આધારે સંભાવ્ય બાજુની અસરોની ઓળખ કરી શકું.',
-    chatBotInteractions: 'ડ્રગ સંવાદો ગંભીર હોઈ શકે છે. તમારી દવાઓ વચ્ચે સંભાવ્ય સંવાદોની તપાસ કરવા માટે, વિશ્લેષણ માટે તમારી પ્રિસ્ક્રિપ્શન અપલોડ કરો.',
-    chatBotDosage: 'યોગ્ય ડોઝેજ દવાની અસરકારકતા અને સુરક્ષા માટે મહત્વપૂર્ણ છે. તમારી પ્રિસ્ક્રિપ્શન અપલોડ કરો, ત્યારે હું ડોઝેજનું વિશ્લેષણ કરીશ અને તમારી આરોગ્ય પ્રોફાઇલના આધારે ભલામણો આપીશ.',
-    chatBotHelp: 'હું તમારી પ્રિસ્ક્રિપ્શન અને દવાઓને સમજવામાં તમારી મદદ કરવા અહીં છું:\n- પ્રિસ્ક્રિપ્શન વિશ્લેષણ\n- દવા બાજુની અસરો\n- ડ્રગ સંવાદો\n- ડોઝેજ માહિતી\n\nશરૂ કરવા માટે, પ્રિસ્ક્રિપ્શન એનાલાઇઝર ટૂલનો ઉપયોગ કરીને તમારી પ્રિસ્ક્રિપ્શન અપલોડ કરો.',
-    chatBotDefault: 'હું તમારી પ્રિસ્ક્રિપ્શન અને દવા પ્રશ્નોમાં તમારી મદદ કરવા અહીં છું. વિગતવાર વિશ્લેષણ માટે, પ્રિસ્ક્રિપ્શન એનાલાઇઝર ટૂલનો ઉપયોગ કરીને તમારી પ્રિસ્ક્રિપ્શન અપલોડ કરો. શું તમારી દવાઓ વિશે કોઈ ચોક્કસ પ્રશ્ન છે?'
-  },
-  
-  pa: {
-    // Common
-    home: 'Home',
     logout: 'Logout',
     
     // Landing Page
@@ -1086,6 +708,140 @@ const translations: Record<Language, TranslationKeys> = {
     confidenceTip: 'Tip: If the confidence is low due to handwriting clarity, try retaking the photo with better lighting and focus.',
     
     // Chat Bot
+    chatBotTitle: 'Digital Doctor Assistant',
+    chatBotWelcome: 'Hello! I\'m your Digital Doctor assistant. How can I help you with your prescriptions or medications today?',
+    chatBotPlaceholder: 'Type your question about prescriptions or medications...',
+    chatBotSend: 'Send',
+    chatBotDisclaimer: 'For detailed prescription analysis, please use the Prescription Analyzer tool.',
+    chatBotError: 'Sorry, I encountered an error processing your request. Please try again.',
+    chatBotPrescriptionInfo: 'I can help you analyze prescriptions. Please upload an image of your prescription using the Prescription Analyzer tool, and I\'ll provide detailed information about your medications, including dosages, interactions, and safety alerts.',
+    chatBotSideEffects: 'If you\'re concerned about side effects of your medications, please upload your prescription for analysis. I can identify potential side effects based on your specific medications and dosages.',
+    chatBotInteractions: 'Drug interactions can be serious. To check for potential interactions between your medications, please upload your prescription for analysis.',
+    chatBotDosage: 'Proper dosage is important for medication effectiveness and safety. Please upload your prescription so I can analyze the dosages and provide recommendations based on your health profile.',
+    chatBotHelp: 'I\'m here to help you understand your prescriptions and medications. You can ask me about: Prescription analysis, Medication side effects, Drug interactions, Dosage information. To get started, please upload your prescription using the Prescription Analyzer tool.',
+    chatBotDefault: 'I\'m here to help you understand your prescriptions and medications. You can ask me about: Prescription analysis, Medication side effects, Drug interactions, Dosage information. To get started, please upload your prescription using the Prescription Analyzer tool.'
+  },
+  
+  ml: {
+    home: 'Home',
+    logout: 'Logout',
+    welcomeTitle: 'Welcome to Digital Doctor AI',
+    welcomeDescription: 'Your AI-powered health assistant for prescription validation and mental health monitoring.',
+    prescriptionValidator: 'Prescription Validator',
+    mentalHealthMonitor: 'Mental Health Monitor',
+    prescriptionAnalysis: 'Prescription Analysis',
+    prescriptionDescription: 'Upload an image of your prescription and provide any relevant health information. Our AI will analyze it for potential issues and insights.',
+    prescriptionNote: 'Note: Our AI is designed to read various handwriting styles, including cursive and潦草 (sloppy) handwriting. For best results, ensure the prescription image is clear and well-lit.',
+    uploadPrescription: 'Upload Prescription',
+    dragDrop: 'Drag and drop',
+    clickToUpload: 'Click to upload',
+    imageTypes: 'PNG, JPG, or WEBP',
+    allergies: 'Allergies',
+    allergiesPlaceholder: 'e.g., Penicillin, Aspirin',
+    age: 'Age',
+    agePlaceholder: 'e.g., 35',
+    conditions: 'Pre-existing Conditions',
+    conditionsPlaceholder: 'e.g., Diabetes, Hypertension',
+    analyzePrescription: 'Analyze Prescription',
+    analyzing: 'Analyzing...',
+    mentalHealthTitle: 'Mental Health Monitor',
+    mentalHealthDescription: 'Record a short audio message about how you\'re feeling. Our AI will analyze your mood and provide personalized wellness recommendations.',
+    startRecording: 'Start Recording',
+    stopRecording: 'Stop Recording',
+    analyzingMood: 'Analyzing your mood...',
+    moodAnalysis: 'Mood Analysis',
+    analysisReport: 'Analysis Report',
+    analysisConfidence: 'Analysis Confidence',
+    allergyAlerts: 'Allergy Alerts',
+    safetyAlerts: 'Enhanced Safety Alerts',
+    drugInteractions: 'Drug Interactions',
+    identifiedMedications: 'Identified Medications',
+    costOptimization: 'Cost Optimization',
+    whatItTreats: 'What it treats:',
+    take: 'Take:',
+    matchFound: '✅ Match Found',
+    noMatch: '⚠️ No Match',
+    yourCondition: 'Your condition:',
+    recommendation: 'Recommendation:',
+    login: 'Login',
+    signup: 'Sign Up',
+    username: 'Username',
+    password: 'Password',
+    email: 'Email (optional)',
+    loginButton: 'Login',
+    signupButton: 'Sign Up',
+    needAccount: 'Need an account?',
+    haveAccount: 'Already have an account?',
+    additionalInfo: 'Additional Information (Optional)',
+    additionalInfoNote: 'Note: Please list all your current health conditions. This will help us match your medications to your specific needs and provide better timing recommendations.',
+    confidenceTip: 'Tip: If the confidence is low due to handwriting clarity, try retaking the photo with better lighting and focus.',
+    chatBotTitle: 'Digital Doctor Assistant',
+    chatBotWelcome: 'Hello! I\'m your Digital Doctor assistant. How can I help you with your prescriptions or medications today?',
+    chatBotPlaceholder: 'Type your question about prescriptions or medications...',
+    chatBotSend: 'Send',
+    chatBotDisclaimer: 'For detailed prescription analysis, please use the Prescription Analyzer tool.',
+    chatBotError: 'Sorry, I encountered an error processing your request. Please try again.',
+    chatBotPrescriptionInfo: 'I can help you analyze prescriptions. Please upload an image of your prescription using the Prescription Analyzer tool, and I\'ll provide detailed information about your medications, including dosages, interactions, and safety alerts.',
+    chatBotSideEffects: 'If you\'re concerned about side effects of your medications, please upload your prescription for analysis. I can identify potential side effects based on your specific medications and dosages.',
+    chatBotInteractions: 'Drug interactions can be serious. To check for potential interactions between your medications, please upload your prescription for analysis.',
+    chatBotDosage: 'Proper dosage is important for medication effectiveness and safety. Please upload your prescription so I can analyze the dosages and provide recommendations based on your health profile.',
+    chatBotHelp: 'I\'m here to help you understand your prescriptions and medications. You can ask me about: Prescription analysis, Medication side effects, Drug interactions, Dosage information. To get started, please upload your prescription using the Prescription Analyzer tool.',
+    chatBotDefault: 'I\'m here to help you understand your prescriptions and medications. You can ask me about: Prescription analysis, Medication side effects, Drug interactions, Dosage information. To get started, please upload your prescription using the Prescription Analyzer tool.'
+  },
+  
+  pa: {
+    home: 'Home',
+    logout: 'Logout',
+    welcomeTitle: 'Welcome to Digital Doctor AI',
+    welcomeDescription: 'Your AI-powered health assistant for prescription validation and mental health monitoring.',
+    prescriptionValidator: 'Prescription Validator',
+    mentalHealthMonitor: 'Mental Health Monitor',
+    prescriptionAnalysis: 'Prescription Analysis',
+    prescriptionDescription: 'Upload an image of your prescription and provide any relevant health information. Our AI will analyze it for potential issues and insights.',
+    prescriptionNote: 'Note: Our AI is designed to read various handwriting styles, including cursive and潦草 (sloppy) handwriting. For best results, ensure the prescription image is clear and well-lit.',
+    uploadPrescription: 'Upload Prescription',
+    dragDrop: 'Drag and drop',
+    clickToUpload: 'Click to upload',
+    imageTypes: 'PNG, JPG, or WEBP',
+    allergies: 'Allergies',
+    allergiesPlaceholder: 'e.g., Penicillin, Aspirin',
+    age: 'Age',
+    agePlaceholder: 'e.g., 35',
+    conditions: 'Pre-existing Conditions',
+    conditionsPlaceholder: 'e.g., Diabetes, Hypertension',
+    analyzePrescription: 'Analyze Prescription',
+    analyzing: 'Analyzing...',
+    mentalHealthTitle: 'Mental Health Monitor',
+    mentalHealthDescription: 'Record a short audio message about how you\'re feeling. Our AI will analyze your mood and provide personalized wellness recommendations.',
+    startRecording: 'Start Recording',
+    stopRecording: 'Stop Recording',
+    analyzingMood: 'Analyzing your mood...',
+    moodAnalysis: 'Mood Analysis',
+    analysisReport: 'Analysis Report',
+    analysisConfidence: 'Analysis Confidence',
+    allergyAlerts: 'Allergy Alerts',
+    safetyAlerts: 'Enhanced Safety Alerts',
+    drugInteractions: 'Drug Interactions',
+    identifiedMedications: 'Identified Medications',
+    costOptimization: 'Cost Optimization',
+    whatItTreats: 'What it treats:',
+    take: 'Take:',
+    matchFound: '✅ Match Found',
+    noMatch: '⚠️ No Match',
+    yourCondition: 'Your condition:',
+    recommendation: 'Recommendation:',
+    login: 'Login',
+    signup: 'Sign Up',
+    username: 'Username',
+    password: 'Password',
+    email: 'Email (optional)',
+    loginButton: 'Login',
+    signupButton: 'Sign Up',
+    needAccount: 'Need an account?',
+    haveAccount: 'Already have an account?',
+    additionalInfo: 'Additional Information (Optional)',
+    additionalInfoNote: 'Note: Please list all your current health conditions. This will help us match your medications to your specific needs and provide better timing recommendations.',
+    confidenceTip: 'Tip: If the confidence is low due to handwriting clarity, try retaking the photo with better lighting and focus.',
     chatBotTitle: 'Digital Doctor Assistant',
     chatBotWelcome: 'Hello! I\'m your Digital Doctor assistant. How can I help you with your prescriptions or medications today?',
     chatBotPlaceholder: 'Type your question about prescriptions or medications...',

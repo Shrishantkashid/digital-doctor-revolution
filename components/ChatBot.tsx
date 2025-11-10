@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Language } from '../types';
 import { analyzePrescription } from '../services/geminiService';
 import { getTranslation } from '../services/translationService';
+import { medicalKnowledgeBase, searchMedicalKnowledge } from '../services/medicalKnowledgeBase';
 
 interface Message {
   id: string;
@@ -78,6 +79,15 @@ const ChatBot: React.FC<ChatBotProps> = ({ language, onClose }) => {
   };
 
   const processUserMessage = async (message: string, language: Language): Promise<string> => {
+    // First, check our medical knowledge base for relevant information
+    const relevantQAs = searchMedicalKnowledge(message);
+    
+    // If we found relevant medical information, use it
+    if (relevantQAs.length > 0) {
+      // Return the most relevant answer
+      return relevantQAs[0].answer;
+    }
+    
     // Check for keywords related to prescriptions or medications
     const lowerMessage = message.toLowerCase();
     
