@@ -43,7 +43,8 @@ const Header: React.FC<HeaderProps> = ({
         logout: 'Logout',
         prescriptionValidator: 'Prescription Validator',
         mentalHealthMonitor: 'Mental Health Monitor',
-        chatBot: 'Chat Bot'
+        chatBot: 'Chat Bot',
+        dietAnalyzer: 'Diet Analyzer'
     };
     
     // Use provided translations or fall back to defaults
@@ -64,7 +65,7 @@ const Header: React.FC<HeaderProps> = ({
                     </div>
                     
                     {/* Navigation buttons - only show when on Prescription Validator or Mental Health Monitor */}
-                    {isAuthenticated && (currentToolView === 'prescription' || currentToolView === 'mentalHealth' || currentToolView === 'chatbot') && (
+                    {isAuthenticated && (currentToolView === 'prescription' || currentToolView === 'mentalHealth' || currentToolView === 'chatbot' || currentToolView === 'diet') && (
                         <div className="hidden md:flex items-center space-x-4">
                             <button
                                 onClick={() => onToolSelect('landing')}
@@ -86,6 +87,12 @@ const Header: React.FC<HeaderProps> = ({
                                     >
                                         {translations.chatBot}
                                     </button>
+                                    <button
+                                        onClick={() => onToolSelect('diet')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.dietAnalyzer}
+                                    </button>
                                 </>
                             ) : currentToolView === 'mentalHealth' ? (
                                 <>
@@ -101,6 +108,33 @@ const Header: React.FC<HeaderProps> = ({
                                     >
                                         {translations.chatBot}
                                     </button>
+                                    <button
+                                        onClick={() => onToolSelect('diet')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.dietAnalyzer}
+                                    </button>
+                                </>
+                            ) : currentToolView === 'chatbot' ? (
+                                <>
+                                    <button
+                                        onClick={() => onToolSelect('prescription')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.prescriptionValidator}
+                                    </button>
+                                    <button
+                                        onClick={() => onToolSelect('mentalHealth')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.mentalHealthMonitor}
+                                    </button>
+                                    <button
+                                        onClick={() => onToolSelect('diet')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.dietAnalyzer}
+                                    </button>
                                 </>
                             ) : (
                                 <>
@@ -115,6 +149,12 @@ const Header: React.FC<HeaderProps> = ({
                                         className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
                                     >
                                         {translations.mentalHealthMonitor}
+                                    </button>
+                                    <button
+                                        onClick={() => onToolSelect('chatbot')}
+                                        className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-700"
+                                    >
+                                        {translations.chatBot}
                                     </button>
                                 </>
                             )}
@@ -147,7 +187,7 @@ const Header: React.FC<HeaderProps> = ({
             </div>
             
             {/* Mobile navigation - only show when on Prescription Validator or Mental Health Monitor */}
-            {isAuthenticated && (currentToolView === 'prescription' || currentToolView === 'mentalHealth' || currentToolView === 'chatbot') && (
+            {isAuthenticated && (currentToolView === 'prescription' || currentToolView === 'mentalHealth' || currentToolView === 'chatbot' || currentToolView === 'diet') && (
                 <div className="md:hidden bg-blue-700 px-4 py-2">
                     <div className="flex justify-around">
                         <button
@@ -170,6 +210,12 @@ const Header: React.FC<HeaderProps> = ({
                                 >
                                     {translations.chatBot}
                                 </button>
+                                <button
+                                    onClick={() => onToolSelect('diet')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.dietAnalyzer}
+                                </button>
                             </>
                         ) : currentToolView === 'mentalHealth' ? (
                             <>
@@ -185,6 +231,33 @@ const Header: React.FC<HeaderProps> = ({
                                 >
                                     {translations.chatBot}
                                 </button>
+                                <button
+                                    onClick={() => onToolSelect('diet')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.dietAnalyzer}
+                                </button>
+                            </>
+                        ) : currentToolView === 'chatbot' ? (
+                            <>
+                                <button
+                                    onClick={() => onToolSelect('prescription')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.prescriptionValidator}
+                                </button>
+                                <button
+                                    onClick={() => onToolSelect('mentalHealth')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.mentalHealthMonitor}
+                                </button>
+                                <button
+                                    onClick={() => onToolSelect('diet')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.dietAnalyzer}
+                                </button>
                             </>
                         ) : (
                             <>
@@ -199,6 +272,12 @@ const Header: React.FC<HeaderProps> = ({
                                     className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
                                 >
                                     {translations.mentalHealthMonitor}
+                                </button>
+                                <button
+                                    onClick={() => onToolSelect('chatbot')}
+                                    className="px-3 py-1 rounded-md text-xs font-medium text-blue-100 hover:bg-blue-600"
+                                >
+                                    {translations.chatBot}
                                 </button>
                             </>
                         )}

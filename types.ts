@@ -57,7 +57,46 @@ export interface MentalHealthAnalysisResult {
     recommendations: string[];
 }
 
-export type Tool = 'landing' | 'prescription' | 'mentalHealth' | 'chatbot';
+// Diet Recommendation System Types
+export interface DetectedFoodItem {
+    name: string;
+    quantity_estimate: string;
+    confidence_score: number;
+}
+
+export interface NutritionInfo {
+    item_name: string;
+    calories: number;
+    carbs_g: number;
+    protein_g: number;
+    fat_g: number;
+    extra_info: string;
+}
+
+export interface TotalMealNutrition {
+    total_calories: number;
+    total_carbs_g: number;
+    total_protein_g: number;
+    total_fat_g: number;
+}
+
+export interface HealthierAlternative {
+    suggestion_title: string;
+    description: string;
+    change_type: 'swap' | 'reduce' | 'add';
+    estimated_calorie_impact: string;
+}
+
+export interface DietAnalysisResult {
+    detected_items: DetectedFoodItem[];
+    nutrition_per_item: NutritionInfo[];
+    total_meal_nutrition: TotalMealNutrition;
+    healthier_alternatives: HealthierAlternative[];
+    assumptions: string[];
+    disclaimer: string;
+}
+
+export type Tool = 'landing' | 'prescription' | 'mentalHealth' | 'chatbot' | 'diet';
 
 // Extended language support - all languages
 export type Language = 'en' | 'hi' | 'te' | 'ta' | 'kn' | 'ml' | 'mr' | 'bn' | 'gu' | 'pa';

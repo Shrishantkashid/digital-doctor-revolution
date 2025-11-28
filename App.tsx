@@ -4,7 +4,8 @@ import PrescriptionAnalyzer from './components/PrescriptionAnalyzer';
 import MentalHealthMonitor from './components/MentalHealthMonitor';
 import LandingPage from './components/LandingPage';
 import AuthPage from './components/AuthPage';
-import ChatBot from './components/ChatBot'; // Add ChatBot import
+import ChatBot from './components/ChatBot';
+import DietAnalyzer from './components/DietAnalyzer';
 import { Tool, Language } from './types';
 import { useTranslation } from './services/translationService';
 // MongoDB connection will be handled through backend API calls
@@ -184,6 +185,9 @@ function App() {
           )}
           {currentToolView === 'chatbot' && (
             <ChatBot language={currentLanguage} onClose={() => setCurrentToolView('landing')} />
+          )}
+          {currentToolView === 'diet' && (
+            <DietAnalyzer language={currentLanguage} userId={userId} />
           )}
         </div>
       </main>

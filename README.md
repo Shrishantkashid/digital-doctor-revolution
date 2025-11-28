@@ -2,16 +2,24 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# Run and deploy your AI Studio app
+# Digital Doctor AI - Enhanced Health Assistant
 
 This contains everything you need to run your app locally.
 
 View your app in AI Studio: https://ai.studio/apps/drive/1mUvOVcSvoqVn0GDPWxnJMSD4O6EcScwz
 
+## Features
+
+Digital Doctor AI now includes four powerful health tools:
+
+1. **Prescription Validator** - Upload prescriptions to check for drug interactions, allergies, and safety warnings
+2. **Mental Health Monitor** - Record voice entries for AI sentiment analysis and wellness recommendations
+3. **AI Chat Bot** - Get answers to health-related questions through conversational AI
+4. **Diet Analyzer** - Analyze meal photos to get nutritional information and healthier alternatives
+
 ## Run Locally
 
 **Prerequisites:**  Node.js
-
 
 1. Install dependencies:
    `npm install`
